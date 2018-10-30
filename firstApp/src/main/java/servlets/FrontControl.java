@@ -23,7 +23,7 @@ import logic.Person;
 public class FrontControl extends HttpServlet {
     
     // VORES COLLECTION med personer.
-    public static List<Person> person = new ArrayList();
+    public static List<Person> persons = new ArrayList();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,23 +35,46 @@ public class FrontControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        persons.add(new Person("karl","p234"));
+        persons.add(new Person("henning","q321"));
+        // Origin er vores måde at bruge en hidden input fra jsp-siden så vi ved hvor requestet kom fra.
         String origin = request.getParameter("origin");
         switch (origin) {
-            case "register":
+            case "register": //Vi kom fra register.jsp
                 register(request, response);
+                break;
+            case "login": //Vi kom fra login.jsp
+                if(login(request, response))
+                    request.getRequestDispatcher("hello.jsp").forward(request, response);
+                break;
+            case "multiselect": //Vi kom fra multiselect.jsp
+                String[] languages = request.getParameterValues("language");
+                request.setAttribute("languages", languages);
+                for (String language : languages) {
+                    System.out.println(language);
+                    
+                }
+                request.setAttribute("persons", persons);
+                request.getRequestDispatcher("multiviewresult.jsp").forward(request, response);
                 break;
             default:
                 throw new AssertionError();
         }
-        
-//        if (password.equals("password123")) {
-//            request.getRequestDispatcher("hello.jsp").forward(request, response);
-//        }
     }
     private void register(HttpServletRequest request, HttpServletResponse response){
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        
+        Person person = new Person(username,password);
+        persons.add(person); //vi smider den nye person op i listen i linje 26.
+    }
+    private boolean login(HttpServletRequest request, HttpServletResponse response){
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        for (Person person : persons) { //gennemløber alle personer
+            if(person.getUsername().equals(username)) //finder person med rigtig username
+                return person.getPassword().equals(password); //returnere sandt eller falsk afhængig af om password passer.
+        }
+        return false;
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
