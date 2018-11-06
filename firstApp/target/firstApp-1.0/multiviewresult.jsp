@@ -20,11 +20,12 @@
             }
         %>
         <h2>Indhold af personlisten</h2>
+        <p>Husk at importere </p>
         <% List<Person> persons = (List<Person>)request.getAttribute("persons");
 //        out.print(persons.size());
-//        for (Person p : persons) {
-//                out.println(p.getUsername()+"<br/>");
-//            }
+        for (Person p : persons) {
+                out.println(p.getUsername()+"<br/>");
+            }
         %>
         
     </body>

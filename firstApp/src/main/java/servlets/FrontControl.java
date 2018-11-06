@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import data.DataMapper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import logic.Person;
  */
 @WebServlet(name = "FrontControl", urlPatterns = {"/FrontControl"})
 public class FrontControl extends HttpServlet {
-    
+    DataMapper dm = new DataMapper();
     // VORES COLLECTION med personer.
     public static List<Person> persons = new ArrayList();
     /**
@@ -35,8 +36,8 @@ public class FrontControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        persons.add(new Person("karl","p234"));
-        persons.add(new Person("henning","q321"));
+//        persons.add(new Person("karl","p234")); //out commented from week 1.
+//        persons.add(new Person("henning","q321"));
         // Origin er vores måde at bruge en hidden input fra jsp-siden så vi ved hvor requestet kom fra.
         String origin = request.getParameter("origin");
         switch (origin) {
@@ -45,7 +46,12 @@ public class FrontControl extends HttpServlet {
                 break;
             case "login": //Vi kom fra login.jsp
                 if(login(request, response))
+                    
                     request.getRequestDispatcher("hello.jsp").forward(request, response);
+                break;
+            case "showAllUsers": //kør denne servlet med: /FrontControl?origin=showAllUsers
+                request.setAttribute("allusers", dm.getAllUsers()); //data mapper klassen bruges til at køre getAllUsers() som returnerer en liste af users som sættes fast på request objektet og sendes til viewet: showusers.jsp
+                    request.getRequestDispatcher("showusers.jsp").forward(request, response);
                 break;
             case "multiselect": //Vi kom fra multiselect.jsp
                 String[] languages = request.getParameterValues("language");
