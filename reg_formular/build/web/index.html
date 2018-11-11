@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Registreringsformular</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="action" method="post">
+            <input type="hidden" name= "origin">
+            Fornavn:
+            <input type="text" name="fname"><br>
+            Efternavn:
+            <input type="text" name="lname"><br>
+            By:
+            <input type="text" name="by"><br>
+            Email:<br>
+            <input type="text" name="email"><br>
+            Mobil:<br>
+            <input type="text" name="mobil"><br>
+            Fødselsår:<br>
+                <select name="fødselsaar">
+                <option value="1968" selected>1968</option>
+                <option value="1969">1969</option>
+                <option value="1970">1970</option>
+                <option value="1971">1971</option>
+                <option value="1972">1972</option>
+            </select><br>
+            Køn:<br>
+            <input type="radio" name="sex" value="mand">Male<br>
+            <input type="radio" name="sex" value="kvinde">Female<br>
+            Sprog jeg taler:<br>
+            <input type="checkbox" name="language" value="dansk">Dansk<br>
+            <input type="checkbox" name="language" value="engelsk">Engelsk<br>
+            <input type="checkbox" name="language" value="fransk">Fransk<br>
+            <input type="checkbox" name="language" value="spansk">Spansk<br>
+            <input type="checkbox" name="language" value="kinesisk">Kinesisk<br>
+            
+            <input type="submit" value="submit"><br>
+            
+            
+        </form>
+    </body>
+</html>
