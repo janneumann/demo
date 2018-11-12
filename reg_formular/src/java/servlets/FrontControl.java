@@ -49,7 +49,7 @@ public class FrontControl extends HttpServlet {
         }
     }
     private void register(HttpServletRequest request, HttpServletResponse response){
-        int id = request.getParameter("id");
+        int id = Integer.parseInt(request.getParameter("id"));
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         Person person = new Person(id,username,password);
